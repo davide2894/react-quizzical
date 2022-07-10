@@ -27,6 +27,12 @@ Ok so these are the requirements from https://scrimba.com/learn/learnreact/react
 
 ## TODO
 [] install react router
+[] crea componente home
+    [] agg title
+    [] agg desc
+    [] agg btn
+    [] click btn -> link to quiz component
+[] crea componente quiz
 [] start screen
     [] if user clicks start button
         [] switch to questions screen

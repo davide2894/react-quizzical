@@ -1,10 +1,17 @@
 import './App.scss';
-import Sample from '../sample/Sample';
+import Home from '../home/Home';
+import Quiz from '../quiz/Quiz';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div className="app">
-      <Sample/>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='quiz' element={<Quiz />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
