@@ -5,7 +5,7 @@ import Question from "../question/Question";
 
 function Quiz() {
 
-  const [quizQuestions, setQuizQuestions] = useState([]);
+  const [ questions, setQuestions ] = useState([]);
 
   useEffect(() => {
     fetch('https://opentdb.com/api.php?amount=5')
@@ -15,25 +15,22 @@ function Quiz() {
       }
       throw response;
     })
-    .then(data => {
-      console.log(data.results);
-      return setQuizQuestions(data.results);
+    .then(questionsData => {
+      setQuestions(questionsData.results);
     })
     .catch(err => {
       console.log("error: ", err);
     })
   }, [])
 
-  useEffect(() => {
-    console.log(quizQuestions);
-  }, [quizQuestions]);
+  console.log(questions);
+
 
   return (
     <div className='quiz'>
-      <div>Quiz</div>
-      {quizQuestions.map(question => {
-        console.log(question.question);
-        return <Question key={nanoid()} questionData={question} />
+      <div>Questions</div>
+      {questions.map(question => {
+        return <Question key={nanoid()} questionObject={question} />
       })}
     </div>    
   )
