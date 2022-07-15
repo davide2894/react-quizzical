@@ -35,6 +35,10 @@ function Question(props) {
         return shuffledAnswers;
     }
 
+    //TODO:
+    // print just one question to make things simpler
+    // for some reason goes in error
+
     useEffect(() => {
         setChoices(prepareAnswers());
     },[])

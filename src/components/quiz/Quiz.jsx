@@ -26,6 +26,9 @@ function Quiz() {
   console.log(questions);
 
 
+  // TODO: 
+  // print just one question to make things simpler
+  // for some reason goes in error
   return (
     <div className='quiz'>
       <div>Questions</div>
