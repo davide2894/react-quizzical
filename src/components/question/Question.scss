@@ -1,0 +1,12 @@
+@import "../../shared.scss";
+
+.choice {
+    &__selected {
+        color: orange;
+
+        &--correct {
+            font-weight: $fw-bold;
+            background: 5px solid green;
+        }
+    }
+}

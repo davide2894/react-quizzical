@@ -1,11 +1,12 @@
 import {useState} from "react";
 import { useEffect } from "react";
 import { nanoid } from "nanoid";
+import "./Question.scss";
 
 
 function Question(props) {
 
-    const { questionObject } = props;
+    const { questionObject, shouldReveal } = props;
     
     const [question, setQuestion] = useState({
         question: "",
@@ -29,10 +30,24 @@ function Question(props) {
         let arr = [];
         
         questionObject.incorrect_answers.forEach(incorrectAnswer => {
-            arr.push({choice: incorrectAnswer, isCorrectChoice: false});
-        });
+            arr.push(
+                {
+                    choice: incorrectAnswer, 
+                    isSelected: false,
+                    isCorrectChoice: false,
+                    id: nanoid(),
+                });
+            }
+        );
         
-        arr.push({choice: questionObject.correct_answer, isCorrectChoice: true});
+        arr.push(
+            {
+                choice: questionObject.correct_answer, 
+                isSelected: false,
+                isCorrectChoice: true,
+                id: nanoid(),
+            }
+        );
 
         shuffleArray(arr);
 
@@ -41,7 +56,6 @@ function Question(props) {
 
     useEffect(() => {
         questionObject && setQuestion(oldQuestion => {
-            console.log(questionObject);
             return {
                 ...oldQuestion,
                 question: questionObject.question,
@@ -50,17 +64,47 @@ function Question(props) {
         });
     }, [questionObject]);
 
+
+    function choiceClickHanlder(selectedChoice) {
+        console.log(selectedChoice);
+        setQuestion(oldQuestion => {
+            return {
+                ...oldQuestion,
+                choices: oldQuestion.choices.map(oldChoice => {
+                    if(oldChoice.id === selectedChoice.id) {
+                        return {
+                            ...oldChoice,
+                            selcted: true,
+                        }
+                    } else {
+                        return {
+                            ...oldChoice,
+                            selcted: false,
+                        };
+                    }
+                }) 
+            };
+        })
+    }
+
     return (
         <div className="question">
             <h2>{question && question.question}</h2>
             <br></br>
             <br></br>
             <br></br>
-            <div className="choices">
+            <ul className="choices">
                 {question && question.choices.map(choice => {
-                    return <li key={nanoid()}>{choice.choice}</li>
+                    return <li className={
+                                `choice 
+                                ${choice.selcted ? "choice__selected" : ""}
+                                ${shouldReveal && choice.isCorrectChoice ? "choice__selected--correct" : ""}
+                               `} 
+                               onClick={() => choiceClickHanlder(choice)} 
+                               key={nanoid()}>{choice.choice}
+                            </li>
                 })}
-            </div>
+            </ul>
         </div>
     )
 }
