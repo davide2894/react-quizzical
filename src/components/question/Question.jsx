@@ -1,17 +1,18 @@
 import {useState} from "react";
-import { decode } from "html-entities";
 import { useEffect } from "react";
+import { nanoid } from "nanoid";
 
 
 function Question(props) {
 
-    const [ choices, setChoices ] = useState([]);
-    const { isCorrectAnswer, setIsCorrectAnsert } = useState(false);
-
     const { questionObject } = props;
     
-    console.log(questionObject.question);
-
+    const [question, setQuestion] = useState({
+        question: "",
+        choices: [],
+        isAnsweredCorrectly: false,
+    });
+    
     // using the Fisher-Yates algorith in combination with Math.Random()
     // see: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
     // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -24,34 +25,42 @@ function Question(props) {
       }
     }
 
-    function prepareAnswers() {
-        var shuffledAnswers = [];
+    function prepareChoices() {
+        let arr = [];
+        
         questionObject.incorrect_answers.forEach(incorrectAnswer => {
-            shuffledAnswers.push(incorrectAnswer);
+            arr.push({choice: incorrectAnswer, isCorrectChoice: false});
         });
-        shuffledAnswers.push(questionObject.correct_answer);
-        shuffleArray(shuffledAnswers);
-        console.log(shuffledAnswers);
-        return shuffledAnswers;
+        
+        arr.push({choice: questionObject.correct_answer, isCorrectChoice: true});
+
+        shuffleArray(arr);
+
+        return arr;
     }
 
-    //TODO:
-    // print just one question to make things simpler
-    // for some reason goes in error
-
     useEffect(() => {
-        setChoices(prepareAnswers());
-    },[])
+        questionObject && setQuestion(oldQuestion => {
+            console.log(questionObject);
+            return {
+                ...oldQuestion,
+                question: questionObject.question,
+                choices: prepareChoices(),    
+            }
+        });
+    }, [questionObject]);
 
     return (
         <div className="question">
-            <h2>{decode(questionObject.question)}</h2>
+            <h2>{question && question.question}</h2>
             <br></br>
             <br></br>
             <br></br>
-            <ul className="choices">
-                {choices && choices.forEach(choice => <li className="choice">{choice}</li>)}
-            </ul>
+            <div className="choices">
+                {question && question.choices.map(choice => {
+                    return <li key={nanoid()}>{choice.choice}</li>
+                })}
+            </div>
         </div>
     )
 }

@@ -2,10 +2,24 @@ import { nanoid } from "nanoid";
 import { useEffect } from "react";
 import {useState} from "react";
 import Question from "../question/Question";
+import { decode } from "html-entities";
+
 
 function Quiz() {
 
   const [ questions, setQuestions ] = useState([]);
+
+  function decodeQuestionsData(questionsData) {
+    questionsData.forEach(question => {
+      question.question = decode(question.question);
+      question.incorrect_answers.forEach(incorrectAnswer => {
+        incorrectAnswer = decode(incorrectAnswer);
+      })
+      question.correct_answer = decode(question.correct_answer);
+    });
+
+    return questionsData;
+  }
 
   useEffect(() => {
     fetch('https://opentdb.com/api.php?amount=5')
@@ -16,15 +30,13 @@ function Quiz() {
       throw response;
     })
     .then(questionsData => {
-      setQuestions(questionsData.results);
+      const decodedQuestions = decodeQuestionsData(questionsData.results);
+      setQuestions(decodedQuestions);
     })
     .catch(err => {
       console.log("error: ", err);
     })
   }, [])
-
-  console.log(questions);
-
 
   // TODO: 
   // print just one question to make things simpler
@@ -32,9 +44,7 @@ function Quiz() {
   return (
     <div className='quiz'>
       <div>Questions</div>
-      {questions.map(question => {
-        return <Question key={nanoid()} questionObject={question} />
-      })}
+      {questions && <Question key={nanoid()} questionObject={questions[0]} />}
     </div>    
   )
 }
