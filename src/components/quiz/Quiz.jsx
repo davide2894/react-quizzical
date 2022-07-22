@@ -137,9 +137,6 @@ function Quiz() {
 
 
   //TODO
-  //1. complete single question game logic:  
-  // - if questions[0].isAnswered is true --> show "Check Answers" btn
-  // - if "Check Answers" btn is clicked --> hide it and show Result element instead
   //2. extend the logic to multiple (5) questions
   //3. style app
 
