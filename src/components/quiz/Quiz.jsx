@@ -26,6 +26,7 @@ function Quiz() {
         choices: prepareChoices(decodedIncorrectAnswers, decodedCorrectAnswer),
         isAnswered: false,
         isAnsweredCorrectly: false,
+        showAnswer: false,
         id: nanoid()
       })
     })
@@ -93,13 +94,14 @@ function Quiz() {
     })
   }, [])
 
+  useEffect(() => {
+    console.log(questions[0]);
+  }, [questions]);
 
   function questionClickHanlder(evt, answeredQuestionId, selectedChoice){
-    console.log(questions.every(question => question.isAnswered));
+    console.log({selectedChoice});
     setQuestions(oldQuestions => {
         return oldQuestions.map(oldQuestion => {
-          console.log(oldQuestion.id, answeredQuestionId);
-          console.log(oldQuestion.id === answeredQuestionId);
           if(oldQuestion.id === answeredQuestionId){
             return {
               ...oldQuestion,
@@ -146,9 +148,20 @@ function Quiz() {
   return (
     <div className='quiz'>
       <div>Questions</div>
-      {questions && <Question key={nanoid()} id={nanoid()} questionProp={questions[0]} shouldReveal={false} onClickHanlder={questionClickHanlder}/>}
+      {questions && 
+        <Question 
+          key={nanoid()} 
+          id={nanoid()} 
+          questionProp={questions[0]} 
+          showResultProp={showResult} 
+          onClickHanlder={questionClickHanlder}
+          disabledProp={showResult}
+        />}
+
       {/* {showResult && <Result numberOfCorrectAnswers={getNumberOfCorrectAnswers} totalQuestions={questions.length}  />} */}
-      {/* {questions[0].isAnswered & !showResult ? <button onClick={showResultsHanlder}>Check answers</button> : null} */}
+      
+      {/* {questions.length && questions.every(question => question.isAnswered) && <button onClick={showResultsHanlder}>Check answers</button>} */}
+      {(questions.length && questions[0].isAnswered) && <button onClick={showResultsHanlder}>Check answers</button>}
     </div>    
   )
 }

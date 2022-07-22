@@ -1,12 +1,23 @@
 @import "../../shared.scss";
 
+.question {
+    &--disabled {
+        pointer-events: none;
+    }
+}
+
 .choice {
     &__selected {
         color: orange;
 
         &--correct {
             font-weight: $fw-bold;
-            background: 5px solid green;
+            background: green;
+        }
+
+        &--wrong {
+            font-weight: $fw-bold;
+            background: red;
         }
     }
 }

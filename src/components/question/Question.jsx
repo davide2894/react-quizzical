@@ -4,10 +4,14 @@ import "./Question.scss";
 
 function Question(props) {
 
-    const { questionProp, shouldReveal } = props;
+    const { questionProp, showResultProp, disabledProp } = props;
+
+    function assignAnswerClass(isCorrectChoice) {
+        return isCorrectChoice ? "choice__selected--correct" : "choice__selected--wrong";
+    }
 
     return (
-        <div className="question">
+        <div className={`question${disabledProp ? " question--disabled" : ""}`}>
             <h2>{questionProp && questionProp.question}</h2>
             <br></br>
             <br></br>
@@ -17,7 +21,7 @@ function Question(props) {
                     return <li className={
                                 `choice 
                                 ${choice.selcted ? "choice__selected" : ""}
-                                ${shouldReveal && choice.isCorrectChoice ? "choice__selected--correct" : ""}
+                                ${(showResultProp & choice.selcted) && assignAnswerClass(choice.isCorrectChoice)}
                                `} 
                                key={nanoid()}
                                onClick={(evt) => props.onClickHanlder(evt, questionProp.id, choice)}
