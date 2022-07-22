@@ -131,11 +131,6 @@ function Quiz() {
     setShowResult(true);
   }
 
-  function  getNumberOfCorrectAnswers() {
-    console.log(questions.filter(question => question.isAnsweredCorrectly).length);
-  }
-
-
   //TODO
   //1. complete single question game logic:  
   // - if questions[0].isAnswered is true --> show "Check Answers" btn
@@ -147,7 +142,6 @@ function Quiz() {
   function shouldShowResult() {
     if(questions.length) {
       if(!showResult & questions[0].isAnswered) {
-        console.log("hi")
         return true;
       } else {
         return false;
@@ -171,7 +165,12 @@ function Quiz() {
       {/* {questions.length && questions.every(question => question.isAnswered) && <button onClick={showResultsHanlder}>Check answers</button>} */}
       {shouldShowResult() && <button onClick={showResultsHanlder}>Check answers</button>}
 
-      {showResult && <Result numberOfCorrectAnswers={getNumberOfCorrectAnswers} totalQuestions={questions.length}  />}
+      {showResult && 
+        <Result 
+          numberOfCorrectAnswers={questions.filter(question => question.isAnsweredCorrectly).length}
+          totalQuestions={questions.length}
+        /> 
+      }
     </div>    
   )
 }
