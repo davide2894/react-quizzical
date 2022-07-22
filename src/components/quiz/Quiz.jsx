@@ -94,12 +94,11 @@ function Quiz() {
     })
   }, [])
 
-  useEffect(() => {
-    console.log(questions[0]);
-  }, [questions]);
+  // useEffect(() => {
+  //   console.log(questions[0]);
+  // }, [questions]);
 
   function questionClickHanlder(evt, answeredQuestionId, selectedChoice){
-    console.log({selectedChoice});
     setQuestions(oldQuestions => {
         return oldQuestions.map(oldQuestion => {
           if(oldQuestion.id === answeredQuestionId){
@@ -145,6 +144,17 @@ function Quiz() {
   //3. style app
 
 
+  function shouldShowResult() {
+    if(questions.length) {
+      if(!showResult & questions[0].isAnswered) {
+        console.log("hi")
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
   return (
     <div className='quiz'>
       <div>Questions</div>
@@ -157,11 +167,11 @@ function Quiz() {
           onClickHanlder={questionClickHanlder}
           disabledProp={showResult}
         />}
-
-      {/* {showResult && <Result numberOfCorrectAnswers={getNumberOfCorrectAnswers} totalQuestions={questions.length}  />} */}
       
       {/* {questions.length && questions.every(question => question.isAnswered) && <button onClick={showResultsHanlder}>Check answers</button>} */}
-      {(questions.length && questions[0].isAnswered) && <button onClick={showResultsHanlder}>Check answers</button>}
+      {shouldShowResult() && <button onClick={showResultsHanlder}>Check answers</button>}
+
+      {showResult && <Result numberOfCorrectAnswers={getNumberOfCorrectAnswers} totalQuestions={questions.length}  />}
     </div>    
   )
 }
