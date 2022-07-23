@@ -94,10 +94,6 @@ function Quiz() {
     })
   }, [])
 
-  // useEffect(() => {
-  //   console.log(questions[0]);
-  // }, [questions]);
-
   function questionClickHanlder(evt, answeredQuestionId, selectedChoice){
     setQuestions(oldQuestions => {
         return oldQuestions.map(oldQuestion => {
@@ -143,7 +139,7 @@ function Quiz() {
 
   function shouldShowResult() {
     if(questions.length) {
-      if(!showResult & questions[0].isAnswered) {
+      if(!showResult & questions.every(question => question.isAnswered)) {
         return true;
       } else {
         return false;
@@ -154,19 +150,19 @@ function Quiz() {
   return (
     <div className='quiz'>
       <div>Questions</div>
-      {questions && 
+      {questions && questions.map(question => 
         <Question 
           key={nanoid()} 
           id={nanoid()} 
-          questionProp={questions[0]} 
+          questionProp={question} 
           showResultProp={showResult} 
           onClickHanlder={questionClickHanlder}
           disabledProp={showResult}
-        />}
+        />)
+      }
       
-      {/* {questions.length && questions.every(question => question.isAnswered) && <button onClick={showResultsHanlder}>Check answers</button>} */}
-      {shouldShowResult() && <button onClick={showResultsHanlder}>Check answers</button>}
-
+      {shouldShowResult() && <button onClick={showResultsHanlder}>Check answers</button>} 
+      
       {showResult && 
         <Result 
           numberOfCorrectAnswers={getNumberOfCorrectAnswers}
