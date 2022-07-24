@@ -12,6 +12,10 @@
         font-size: rem(31px);
         line-height: 2;
     }
+
+    &__h2 {
+        font-size: rem(20px);
+    }
     
     .link {
         @include buttonCommonStyle;
