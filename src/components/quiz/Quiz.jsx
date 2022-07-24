@@ -131,12 +131,6 @@ function Quiz() {
     return questions.filter(question => question.isAnsweredCorrectly).length;
   }
 
-
-  //TODO
-  //2. extend the logic to multiple (5) questions
-  //3. style app
-
-
   function shouldShowResult() {
     if(questions.length) {
       if(!showResult & questions.every(question => question.isAnswered)) {
