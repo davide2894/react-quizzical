@@ -1,0 +1,17 @@
+@use "../../common/common.scss" as *;
+
+.result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__score {
+        font-weight: $fw-bold;
+        font-size: rem(19px);
+    }
+
+    &__button {
+        @include buttonCommonStyle;
+        margin-left: 30px;
+    }
+}
