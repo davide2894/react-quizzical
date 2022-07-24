@@ -1,4 +1,4 @@
-@import "../../shared.scss";
+@use "../../common/common.scss" as *;
 
 .home {
     height: 100vh;
@@ -14,14 +14,7 @@
     }
     
     .link {
-        background-color: $kashmir-blue;
-        color: $white-lilac;
-        width: 190px;
-        height: 52px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        border-radius: 15px;
+        @include buttonCommonStyle;
         text-decoration: none;
         margin-top: 30px;
     }

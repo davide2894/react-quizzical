@@ -1,6 +1,5 @@
-@import './reset.scss';
-@import './shared';
-
+@use "common/common.scss" as *;
+@use "./reset.scss";
 
 body {
   margin: 0;

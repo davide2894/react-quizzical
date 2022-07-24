@@ -1,4 +1,4 @@
-@import "../../shared.scss";
+@use "../../common/common.scss" as *;
 
 .question {    
     text-align: left;
