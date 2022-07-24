@@ -147,8 +147,10 @@ function Quiz() {
     }
   }
 
+  var quizClassNames=`quiz${showResult ? " quiz--complete" : ""}`;
+
   return (
-    <div className='quiz'>
+    <div className={quizClassNames}>
       {questions && questions.map(question => 
         <Question 
           key={nanoid()} 

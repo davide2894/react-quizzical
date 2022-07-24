@@ -20,7 +20,30 @@
 
     &__checkAnswersBtn {
         color: #fff;
-        font-weight: $fw-medium-bold;
+    }
+
+    &--showResults {
+        .choice:not(.choice--correct) {
+            opacity: 0.7;
+        }
+
+        .choice {
+            &--correct {
+                background: $vista-blue;
+            }
+            
+            &__selected {
+                &--wrong {
+                    background-color: $illusion;
+                    opacity: 0.8;
+                }    
+            }
+
+            &--correct,
+            &__selected {
+                border: none;
+            }
+        }
     }
 }
 
@@ -41,17 +64,12 @@
     }
 
     &__selected {
-        border: none;
         background-color: $link-water;
-
-        &--correct {
-            background: $vista-blue;
-            font-weight: $fw-medium-bold;
-        }
-
-        &--wrong {
-            background-color: $illusion;
-            opacity: 0.8;
-        }
+        border: none;
     }
+}
+
+.question__checkAnswersBtn,
+.choice__selected--correct {
+    font-weight: $fw-medium-bold;
 }
