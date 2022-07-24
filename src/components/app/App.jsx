@@ -1,7 +1,7 @@
 import './App.scss';
 import Home from '../home/Home';
 import Quiz from '../quiz/Quiz';
-import { Routes, Route, HashRouter } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
