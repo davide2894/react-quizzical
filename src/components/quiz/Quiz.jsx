@@ -4,7 +4,7 @@ import {useState} from "react";
 import Question from "../question/Question";
 import { decode } from "html-entities";
 import Result from "../result/Result";
-
+import "./Quiz.scss";
 
 function Quiz() {
 
@@ -149,7 +149,6 @@ function Quiz() {
 
   return (
     <div className='quiz'>
-      <div>Questions</div>
       {questions && questions.map(question => 
         <Question 
           key={nanoid()} 
@@ -161,8 +160,8 @@ function Quiz() {
         />)
       }
       
-      {shouldShowResult() && <button onClick={showResultsHanlder}>Check answers</button>} 
-      
+      {shouldShowResult() && <button className="quiz__checkAnswersBtn" onClick={showResultsHanlder}>Check answers</button>}
+
       {showResult && 
         <Result 
           numberOfCorrectAnswers={getNumberOfCorrectAnswers}

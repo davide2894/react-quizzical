@@ -12,11 +12,8 @@ function Question(props) {
 
     return (
         <div className={`question${disabledProp ? " question--disabled" : ""}`}>
-            <h2>{questionProp && questionProp.question}</h2>
-            <br></br>
-            <br></br>
-            <br></br>
-            <ul className="choices">
+            <h2 className="question__text">{questionProp && questionProp.question}</h2>
+            <ul className="question__choices choices">
                 {questionProp && questionProp.choices.map(choice => {
                     return <li className={
                                 `choice 
@@ -29,6 +26,7 @@ function Question(props) {
                             </li>
                 })}
             </ul>
+            <hr className="question__hr"></hr>
         </div>
     )
 }

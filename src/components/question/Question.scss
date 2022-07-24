@@ -1,23 +1,57 @@
 @import "../../shared.scss";
 
-.question {
+.question {    
+    text-align: left;
+
     &--disabled {
         pointer-events: none;
     }
+
+    &__text {
+        margin-bottom: 15px;
+        font-weight: $fw-bold;
+        font-size: rem(20px);
+    }
+
+    &__hr {
+        margin-bottom: 30px;
+        color: $periwinkle-gray;
+    }
+
+    &__checkAnswersBtn {
+        color: #fff;
+        font-weight: $fw-medium-bold;
+    }
+}
+
+.choices {
+    display: flex;
 }
 
 .choice {
+    border-radius: 10px;
+    border: 1px solid $kashmir-blue;
+    padding: 5px 10px;
+    text-align: center;
+    font-weight: $fw-medium;
+    min-width: 30px;
+
+    &:not(:first-child) {
+        margin-left: 20px;
+    }
+
     &__selected {
-        color: orange;
+        border: none;
+        background-color: $link-water;
 
         &--correct {
-            font-weight: $fw-bold;
-            background: green;
+            background: $vista-blue;
+            font-weight: $fw-medium-bold;
         }
 
         &--wrong {
-            font-weight: $fw-bold;
-            background: red;
+            background-color: $illusion;
+            opacity: 0.8;
         }
     }
 }

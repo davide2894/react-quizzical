@@ -1,0 +1,16 @@
+@import "../../shared.scss";
+
+.quiz {
+    &__checkAnswersBtn {
+        background-color: $kashmir-blue;
+        color: $white-lilac;
+        padding: 20px 10px;
+        border-radius: 10px;
+        font-weight: 600;
+        border-color: none;
+        border: none;
+        width: 155px;
+        line-height: 1.2;
+        font-size: rem(17px);
+    }
+}
