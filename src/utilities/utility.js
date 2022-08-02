@@ -1,30 +1,6 @@
 import { decode } from "html-entities";
 import { nanoid } from "nanoid";
 
-export function mapQuestionsFromApi(questionsData) {
-    const questionsFromApi = questionsData.results;
-    const mappedQuestions = [];
-
-    questionsFromApi.forEach(questionFromApi => {      
-        const decodedQuestion = getDecodeString(questionFromApi.question);
-        const decodedIncorrectAnswers = questionFromApi.incorrect_answers.map(incorrectAnswer => {
-            return getDecodeString(incorrectAnswer);
-        })
-
-        const decodedCorrectAnswer = questionFromApi.correct_answer = getDecodeString(questionFromApi.correct_answer);
-        mappedQuestions.push({
-            question: decodedQuestion,
-            choices: prepareChoices(decodedIncorrectAnswers, decodedCorrectAnswer),
-            isAnswered: false,
-            isAnsweredCorrectly: false,
-            showAnswer: false,
-            id: nanoid()
-        })
-    })
-
-    return mappedQuestions;
-}
-
 function getDecodeString(str) {
     return decode(str);
 }
@@ -67,4 +43,28 @@ function shuffleArray(arr) {
         arr[i] = arr[j];
         arr[j] = temp;
     }
+}
+
+export function mapQuestionsFromApi(questionsData) {
+    const questionsFromApi = questionsData.results;
+    const mappedQuestions = [];
+
+    questionsFromApi.forEach(questionFromApi => {      
+        const decodedQuestion = getDecodeString(questionFromApi.question);
+        const decodedIncorrectAnswers = questionFromApi.incorrect_answers.map(incorrectAnswer => {
+            return getDecodeString(incorrectAnswer);
+        })
+
+        const decodedCorrectAnswer = questionFromApi.correct_answer = getDecodeString(questionFromApi.correct_answer);
+        mappedQuestions.push({
+            question: decodedQuestion,
+            choices: prepareChoices(decodedIncorrectAnswers, decodedCorrectAnswer),
+            isAnswered: false,
+            isAnsweredCorrectly: false,
+            showAnswer: false,
+            id: nanoid()
+        })
+    })
+
+    return mappedQuestions;
 }
