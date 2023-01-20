@@ -74,6 +74,10 @@
         }
     }
 
+    &:hover {
+      cursor: pointer;  
+    }
+
     &__selected {
         background-color: $link-water;
         border: none;
