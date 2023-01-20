@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import "./Question.scss";
 
 function Question(props) {
@@ -14,19 +13,20 @@ function Question(props) {
     const questionClassNames = `question${disabledQuestionClassName}${showResultInQuestion}`; 
 
     return (
-        <div className={questionClassNames}>
+        <div className={questionClassNames + " " + props.idxClass}>
             <h2 className="question__text">{questionProp && questionProp.question}</h2>
             <ul className="question__choices choices">
-                {questionProp && questionProp.choices.map(choice => {
+                {questionProp && questionProp.choices.map((choice, idx) => {
                     return <li className={
                                 `choice
                                 ${choice.isCorrectChoice ? "choice--correct" : ""} 
-                                ${choice.selcted ? "choice__selected" : ""}
-                                ${(showResultProp & choice.selcted) && assignAnswerClass(choice.isCorrectChoice)}
-                                ${showResultProp & choice.selcted ? "choice__reveal" : ""}
+                                ${choice.selected ? "choice__selected" : ""}
+                                ${(showResultProp & choice.selected) ? assignAnswerClass(choice.isCorrectChoice) : ""}
+                                ${showResultProp & choice.selected ? "choice__reveal" : ""}
+                                ${idx}
                                `} 
-                               key={nanoid()}
-                               onClick={(evt) => props.onClickHanlder(evt, questionProp.id, choice)}
+                               key={idx}
+                               onClick={(evt) => props.onClickHandler(evt, questionProp.id, choice)}
                             >{choice.choice}
                             </li>
                 })}
