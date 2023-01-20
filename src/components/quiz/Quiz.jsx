@@ -42,11 +42,7 @@ function Quiz() {
   function showResultsHandler(){
     setShowResult(true);
   }
-  
-  function getNumberOfCorrectAnswers() {
-    return questions.filter(question => question.isAnsweredCorrectly).length;
-  }
-  
+    
   function shouldShowResult() {
     if(questions.length) {
       if(!showResult & questions.every(question => question.isAnswered)) {
@@ -93,7 +89,7 @@ function Quiz() {
     
     {showResult && 
       <Result 
-      numberOfCorrectAnswers={getNumberOfCorrectAnswers}
+      numberOfCorrectAnswers={questions.filter(question => question.isAnsweredCorrectly).length}
       totalQuestions={questions.length}
       /> 
     }
